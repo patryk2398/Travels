@@ -1,0 +1,77 @@
+﻿@page
+@model Travels.Pages.Places.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div>
+    <div class=" border backgroundWhite" style="min-height: 820px;">
+        <h2 class="text-info">Szczegóły</h2>
+        <br />
+        <div class="row">
+            <div>
+                <a href='javascript:history.go(-1)' class="btn btn-success text-white" style="margin-left: 13px;">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="col-1 offset-1">
+                <h2 class="font-weight-bold">@Html.DisplayFor(model => model.Place.Locality)</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-1">
+                <h6>Kraj</h6>
+            </div>
+            <div class="col-1 offset-3">
+                <h6>Ocena</h6>
+            </div>
+            <div class="col-6 offset-1">
+                <img src="@Model.Place.Image" style="border-radius:5px;border :1px solid #bbb9b9; width:83.5%; position: absolute;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <h3 class="font-weight-bold">@Html.DisplayFor(model => model.Place.Country)</h3>
+            </div>
+            <div class="col-1 offset-3">
+                <h3 class="font-weight-bold">@Html.DisplayFor(model => model.Place.Rating)</h3>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-1">
+                <h6>Typ</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <h3 class="font-weight-bold">@Html.DisplayFor(model => model.Place.TravelType.Name)</h3>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-1 offset-2">
+                <h6>Opis</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <textarea asp-for="Place.Description" disabled class="form-control"
+                          rows="10" style="background-color: white; border-color: white;"></textarea>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <a class="btn btn-danger text-white col-2" style="margin-left: 13px;" asp-page="Delete" asp-route-Id="@Model.Place.Id">
+                Usuń
+            </a>
+            <a class="btn btn-info text-white col-2 offset-1" asp-page="Edit" asp-route-Id="@Model.Place.Id">
+                Edytuj
+            </a>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,60 @@
+﻿@page
+@model Travels.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<form method="post">
+    <div class=" border  backgroundWhite">
+        <h2 class="text-info">Edytuj użytkownika</h2>
+        <br />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="ApplicationUser.Id" hidden />
+        <input asp-for="ApplicationUser.Email" hidden />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="text-info">Imię</label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="ApplicationUser.FirstName" class="form-control" />
+                </div>
+            </div>
+            <span asp-validation-for="ApplicationUser.FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="text-info">Nazwisko</label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="ApplicationUser.LastName" class="form-control" />
+                </div>
+            </div>
+            <span asp-validation-for="ApplicationUser.LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="text-info">E-mail</label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="ApplicationUser.Email" disabled class="form-control" />
+                </div>
+            </div>
+            <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_EditAndBackToListButton" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

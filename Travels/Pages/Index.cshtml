@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<div class="row">
+    <div class="col-7">
+        <h1 style="margin-bottom: 15px">Travels to serwis internetowy dla każdego zapalonego podróżnika.</h1>
+        <p style="font-size: 20px; text-align: justify;">
+            Zacznij korzystać już dzisiaj. Zapisuj w bazie swoje podróże, przypisuj je
+            do wielu wbudowanych kategorii, oceniaj, dodawaj zdjęcia, wyszukuj starsze wpisy.
+            Serwis ułatwi Ci zarówno planowanie nowych podróży jak i wspominanie starych.
+        </p>
+    </div>
+    <div class="col-4 offset-1">
+        <img src="~/images/travel-logo.png" style="width: 100%;" />
+    </div>
+</div>
+<div>
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <a class="btn btn-secondary" style="margin: 20px 0px;" asp-area="Identity" asp-page="/Account/Register">Rejestracja</a>
+    }
+</div>
+

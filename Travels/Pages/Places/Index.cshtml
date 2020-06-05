@@ -1,0 +1,151 @@
+﻿@page
+@model Travels.Pages.Places.IndexModel
+@using Travels.Utility;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<form method="get">
+    <div class="container backgroundWhite">
+        
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0 row container">
+                <div class="col-6">
+                    <h2 class="text-info" py-2>Lista podróży użytkownika</h2>
+                </div>    
+            </div>
+            <div class="card-body">
+                <div class="row" style="padding-bottom:40px; padding-top:20px;">
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <p>
+                                <a asp-page="Create" asp-route-userId="@Model.PlacesAndUserVM.UserObj.Id" class="btn btn-info form-control">
+                                    <i class="fas fa-plus"></i>&nbsp; Dodaj podróż
+                                </a>
+                            </p>
+                        </div>
+                        <br />
+                        <div class="col-md-12">
+                            @if (User.IsInRole(SD.AdminEndUser))
+                            {
+                                <a asp-page="/Users/Index" class="btn btn-primary form-control">
+                                    <i class="fas fa-arrow-left"></i>&nbsp; Powrót do listy użytkowników
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 offset-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label> Imię </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-bottom:8px;">
+                                <input asp-for="PlacesAndUserVM.UserObj.FirstName" disabled class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label> Nazwisko </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-bottom:8px;">
+                                <input asp-for="PlacesAndUserVM.UserObj.LastName" disabled class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label> Email </label>
+                            </div>
+                            <div class="col-sm-8" style="padding-bottom:8px;">
+                                <input asp-for="PlacesAndUserVM.UserObj.Email" disabled class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:60px;" class="container border border-secondary">
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="row" style="padding-top:10px">
+                                <div class="col-4" hidden>
+                                    @Html.Editor("userId", new { htmlAttributes = Model.PlacesAndUserVM.UserObj.Id })
+                                </div>
+                                <div class="col-4">
+                                    @Html.Editor("searchCountry", new { htmlAttributes = new { @class = "form-control", placeholder = "Kraj..." } })
+                                </div>
+                                <div class="col-4">
+                                    @Html.Editor("searchLocality", new { htmlAttributes = new { @class = "form-control", placeholder = "Miejsce..." } })
+                                </div>
+                                <div class="col-4">
+                                    @Html.Editor("searchType", new { htmlAttributes = new { @class = "form-control", placeholder = "Typ..." } })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="row" style="padding-top:10px; padding-right:15px;">
+                                <button type="submit" name="submit" value="Search" class="btn btn-info form-control">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.PlacesAndUserVM.Place.Count() == 0)
+                {
+                    <p>
+                        Brak podróży! Proszę dodać nową podróż...
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                Kraj
+                            </th>
+                            <th>
+                                Miejsce
+                            </th>
+                            <th>
+                                Typ
+                            </th>
+                            <th>
+                                Ocena
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model.PlacesAndUserVM.PlacesList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(m => item.Country)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Locality)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.TravelType.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Rating)
+                                </td>
+                                <td>
+                                    <a class="btn btn-success text-white" asp-page="Details" asp-route-Id="@item.Id">
+                                        Szczegóły
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <div page-model="@Model.PlacesAndUserVM.PagingInfo" asp-action="Index" asp-route-userId="@Model.PlacesAndUserVM.UserObj.Id" page-class="btn border"
+                                     page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</form>

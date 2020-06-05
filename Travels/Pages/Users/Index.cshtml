@@ -1,0 +1,96 @@
+﻿@page
+@model Travels.Pages.Users.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+    <form method="get" asp-page="Index">
+        <div class="border backgroundWhite">
+            <div class="row">
+                <div class="col-6">
+                    <h2 class="text-info">Lista użytkowników</h2>
+                </div>
+                <div class="col-6 text-right">
+                    <a asp-page="/Account/Register" asp-area="Identity" class="btn btn-info">
+                        <i class="fas fa-plus"></i>&nbsp; Dodaj nowego użytkownika
+                    </a>
+                </div>
+            </div>
+            <br />
+            <div style="height:60px;" class="container border border-secondary">
+                <div class="row">
+                    <div class="col-11">
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-4">
+                                @Html.Editor("searchFirstName", new { htmlAttributes = new { @class = "form-control", placeholder = "Imię..." } })
+                            </div>
+                            <div class="col-4">
+                                @Html.Editor("searchLastName", new { htmlAttributes = new { @class = "form-control", placeholder = "Nazwisko..." } })
+                            </div>
+                            <div class="col-4">
+                                @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail..." } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="row" style="padding-top:10px; padding-right:15px;">
+                            <button type="submit" name="submit" value="Search" class="btn btn-info form-control">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        Imię
+                    </th>
+                    <th>
+                        Nazwisko
+                    </th>
+                    <th>
+                        E-mail
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.UsersListVM.ApplicationUserList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Email)
+                        </td>
+                        <td>
+                            <a asp-page="../Places/Index" asp-route-userID="@item.Id" style="text-decoration:none;">
+                                <i class="fas fa-plane"></i> &nbsp; Podróże użytkownika
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5" class="text-right">
+                        <div page-model="@Model.UsersListVM.PagingInfo" asp-action="Index" page-class="btn border"
+                             page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+

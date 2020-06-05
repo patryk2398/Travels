@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Travels.Data;
+using Travels.Models;
+using Travels.Utility;
+
+namespace Travels.Pages.Users
+{
+    [Authorize(Roles = SD.AdminEndUser)]
+    public class EditModel : PageModel
+    {
+        private readonly ApplicationDbContext _db;
+
+        public EditModel(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
+        [BindProperty]
+        public ApplicationUser ApplicationUser { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string id)
+        {
+            if (id.Trim().Length == 0)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser = await _db.ApplicationUser.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (ApplicationUser == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            else
+            {
+                var userInDb = await _db.ApplicationUser.SingleOrDefaultAsync(u => u.Id == ApplicationUser.Id);
+                if (userInDb == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    userInDb.Email = ApplicationUser.Email;
+                    userInDb.FirstName = ApplicationUser.FirstName;
+                    userInDb.LastName = ApplicationUser.LastName;
+                    await _db.SaveChangesAsync();
+                    return RedirectToPage("Index");
+                }
+            }
+        }
+
+
+    }
+}

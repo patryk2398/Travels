@@ -1,0 +1,80 @@
+﻿@page
+@model Travels.Pages.Places.CreateModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data" id="form">
+    <div class="border backgroundWhite">
+        <h2 class="text-info">Dodaj nową podróż</h2>
+        <br />
+        <input hidden asp-for="Place.UserId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Kraj</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Place.Country" class="form-control" />
+            </div>
+            <span asp-validation-for="Place.Country" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Miejsce</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Place.Locality" class="form-control" />
+            </div>
+            <span asp-validation-for="Place.Locality" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Typ</label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Place.TravelTypeId"
+                        asp-items="@(new SelectList(Model.PlacesAndUserVM.TravelTypesList,"Id","Name"))"
+                        class="form-control"></select>
+            </div>
+            <span asp-validation-for="Place.Locality" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Ocena</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Place.Rating" class="form-control" />
+            </div>
+            <span asp-validation-for="Place.Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Opis</label>
+            </div>
+            <div class="col-5">
+                <textarea asp-for="Place.Description" class="form-control" rows="14"></textarea>
+            </div>
+            <span asp-validation-for="Place.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label>Zdjęcie</label>
+            </div>
+            <div class="col-sm-5">
+                <input type="file" name="files" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_CreateAndBackToListButton" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+}
+

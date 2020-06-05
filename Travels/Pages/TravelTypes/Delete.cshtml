@@ -1,0 +1,29 @@
+﻿@page
+@model Travels.Pages.TravelTypes.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<form method="post">
+    <input asp-for="TravelType.Id" hidden />
+    <div class=" border  backgroundWhite">
+        <h2 class="text-info">Usuń typ podróży</h2>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="TravelType.Name"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TravelType.Name" disabled class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteAndBackToListButton" />
+            </div>
+        </div>
+    </div>
+</form>
+
+

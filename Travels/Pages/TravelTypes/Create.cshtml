@@ -1,0 +1,30 @@
+﻿@page
+@model Travels.Pages.TravelTypes.CreateModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<form method="post">
+    <div class="border backgroundWhite">
+        <h2 class="text-info">Dodaj typ podróży</h2>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Nazwa</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="TravelType.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="TravelType.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_CreateAndBackToListButton" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");}
+}

@@ -1,0 +1,64 @@
+﻿@page
+@model Travels.Pages.Places.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div>
+    <form method="post">
+        <input asp-for="Place.Id" hidden />
+        <div class=" border  backgroundWhite">
+            <h2 class="text-info">Usuń typ podróży</h2>
+            <br />
+            <div class="form-group row">
+                <div class="col-1">
+                    <label>Kraj</label>
+                </div>
+                <div class="col-4">
+                    <input asp-for="Place.Country" disabled class="form-control" />
+                </div>
+                <div class="col-6 offset-1">
+                    <img src="@Model.Place.Image" style="border-radius:5px;border :1px solid #bbb9b9; width:83.5%; position: absolute;" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-1">
+                    <label>Miejsce</label>
+                </div>
+                <div class="col-4">
+                    <input asp-for="Place.Locality" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-1">
+                    <label>Typ</label>
+                </div>
+                <div class="col-4">
+                    <input asp-for="Place.TravelType.Name" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-1">
+                    <label>Ocena</label>
+                </div>
+                <div class="col-4">
+                    <input asp-for="Place.Rating" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-1">
+                    <label>Opis</label>
+                </div>
+                <div class="col-4">
+                    <textarea asp-for="Place.Description" disabled class="form-control" rows="14"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 offset-1">
+                    <partial name="_DeleteAndBackToListButton" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

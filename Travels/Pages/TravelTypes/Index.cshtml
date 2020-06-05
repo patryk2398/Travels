@@ -1,0 +1,54 @@
+﻿@page
+@model Travels.Pages.TravelTypes.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Typy podróży</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-page="Create" class="btn btn-info">
+                <i class="fas fa-plus"></i>&nbsp; Dodaj nowy
+            </a>
+        </div>
+    </div>
+    <br/>
+    <div>
+        @if(Model.TravelType.Count==0)
+        {
+            <p>Brak typów podróży. Dodaj nowy typ.</p>
+        }
+        else
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m=>m.TravelType[0].Name)
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach(var item in Model.TravelType)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                
+                <td style="float: right; margin-right: 30px;">
+                    <a class="btn btn-primary text-white" asp-page="Edit" asp-route-Id="@item.Id">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger text-white" asp-page="Delete" asp-route-Id="@item.Id">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+                
+            </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
